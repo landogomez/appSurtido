@@ -117,9 +117,9 @@ const _Layout = () => {
                     borderRadius: 35,
                     backgroundColor: '#060F28',
                     shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: 0.3,
-                    shadowRadius: 8,
+                    shadowOffset: { width: 0, height: 12 },
+                    shadowOpacity: 0.5,
+                    shadowRadius: 16,
                     elevation: 8,
                 }}
                 onPress={() => {
