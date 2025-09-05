@@ -1,14 +1,12 @@
 import { Text, View } from "react-native";
 import NavBar from "../navBar";
-
-const Ventas = () => {
+const Mapa = () => {
     return (
         <View className="flex-1 bg-white">
-            <Text>Ventas</Text>
+            <Text>Mapa</Text>
             <NavBar />
         </View>
     )
 }
 
-export default Ventas;
-
+export default Mapa;

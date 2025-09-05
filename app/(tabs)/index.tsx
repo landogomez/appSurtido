@@ -1,9 +1,13 @@
 import { Text, View } from "react-native";
+import NavBar from "../navBar";
 
-export default function Index() {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Text className="text-2xl font-bold text-blue-500">Que ondon unitipers</Text>
-    </View>
-  );
+const Index = () => {
+    return (
+        <View className="flex-1 bg-white">
+            <Text>Home</Text>
+            <NavBar />
+        </View>
+    )
 }
+
+export default Index;
