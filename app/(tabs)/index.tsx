@@ -1,4 +1,5 @@
 import { Text, TouchableOpacity, View } from "react-native";
+import { CheckIcon, XMarkIcon } from "react-native-heroicons/solid";
 import NavBar from "../navBar";
 
 const Index = () => {
@@ -29,6 +30,9 @@ const Index = () => {
                 </View>
                 <View>
                     <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <View className="absolute -top-2 -right-2 bg-blue-500 rounded-full w-5 h-5 items-center justify-center">
+                            <CheckIcon size={12} color="#fff" />
+                        </View>
                         <View className="flex-row justify-between">
                             <Text className="font-bold">La Moderna</Text>
                             <Text className="font-bold">$2,000</Text>
@@ -39,6 +43,9 @@ const Index = () => {
                         </View>
                     </View>
                     <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <View className="absolute -top-2 -right-2 bg-red-500 rounded-full w-5 h-5 items-center justify-center">
+                            <XMarkIcon size={12} color="#fff" />
+                        </View>
                         <View className="flex-row justify-between">
                             <Text className="font-bold">La Moderna</Text>
                             <Text className="font-bold">$2,000</Text>
@@ -49,6 +56,9 @@ const Index = () => {
                         </View>
                     </View>
                     <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <View className="absolute -top-2 -right-2 bg-blue-500 rounded-full w-5 h-5 items-center justify-center">
+                            <CheckIcon size={12} color="#fff" />
+                        </View>
                         <View className="flex-row justify-between">
                             <Text className="font-bold">La Moderna</Text>
                             <Text className="font-bold">$2,000</Text>
