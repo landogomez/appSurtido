@@ -21,7 +21,7 @@ const NavBar = () => {
                 position: 'absolute',
                 left: 20,
                 right: 20,
-                bottom: 30,
+                bottom: 60,
                 borderRadius: 32,
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: 8 },

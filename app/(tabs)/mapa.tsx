@@ -3,7 +3,7 @@ import NavBar from "../navBar";
 const Mapa = () => {
     return (
         <View className="flex-1 bg-white">
-            <Text>Mapa</Text>
+            <Text className="text-black justify-center items-center">Mapa</Text>
             <NavBar />
         </View>
     )
