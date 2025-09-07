@@ -4,6 +4,7 @@ import NavBar from "../navBar";
 
 const Index = () => {
     return (
+       
         <View className="flex-1 bg-white">
             <View className="px-6 pt-8 items-center justify-center mt-20">
                 <Text className="text-2xl text-gray-500 text-center">Ángel</Text>
@@ -69,9 +70,10 @@ const Index = () => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity className="absolute bottom-1 left-0 right-0 items-center" onPress={()=>{}}>
+                <TouchableOpacity>
                     <Text className="font-bold text-blue-500">Ver todos</Text>
                 </TouchableOpacity>
+                
             </View>
             <NavBar />
         </View>
