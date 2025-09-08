@@ -1,5 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { CheckIcon, XMarkIcon } from "react-native-heroicons/solid";
+import KpiCard from "../components/KpiCard";
+import TicketCard from "../components/TicketCard";
 import NavBar from "../navBar";
 
 const Index = () => {
@@ -11,18 +12,10 @@ const Index = () => {
                 <Text className="text-4xl  text-['#1D3557'] text-center">¿Listo para surtir hoy?</Text>
             </View>
             <View className="w-96 h-72 self-center mt-8 flex flex-wrap">
-                {[...Array(4)].map((_, i) => (
-                    <View
-                        key={i}
-                            className="w-1/2 h-1/2 p-2"
-                    >
-                        <View className="flex-1 bg-[#031445ff] rounded-xl shadow-sm items-center justify-center">
-                            <Text className="text-lg font-bold text-white">KPI {i + 1}</Text>
-                            <Text className="text-2xl text-blue-400 mt-1">{Math.floor(Math.random() * 100)}</Text>
-                            <Text className="text-xs text-gray-500 mt-1">Descripción</Text>
-                        </View>
-                    </View>
-                ))}
+                <KpiCard titulo="Establecimientos" valor={24} descripcion="Tiendas hoy" />
+                <KpiCard titulo="Stock" valor={560} descripcion="Productos surtidos hoy" />
+                <KpiCard titulo="% Ruta" valor={75} descripcion="Porcentaje de ruta" />
+                <KpiCard titulo="Ingresos" valor={12000} descripcion="Ingresos generados hoy" />
             </View>
             <View className="relative h-68 flex flex-col px-6 pt-8 items-center justify-center mt-0">
                 <View className="w-96 flex-row justify-between mb-4">
@@ -31,43 +24,13 @@ const Index = () => {
                 </View>
                 <View>
                     <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
-                        <View className="absolute -top-2 -right-2 bg-blue-500 rounded-full w-5 h-5 items-center justify-center">
-                            <CheckIcon size={12} color="#fff" />
-                        </View>
-                        <View className="flex-row justify-between">
-                            <Text className="font-bold">La Moderna</Text>
-                            <Text className="font-bold">$2,000</Text>
-                        </View>
-                        <View className="flex-row justify-between">
-                            <Text className="text-gray-500">Hoy a las 10:00 AM</Text>
-                            <Text className="text-gray-500">250 Productos</Text>
-                        </View>
+                        <TicketCard tienda="La Moderna" monto={2000} hora="Hoy a las 10:00 AM" productos={250} estado="completado" />
                     </View>
                     <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
-                        <View className="absolute -top-2 -right-2 bg-red-500 rounded-full w-5 h-5 items-center justify-center">
-                            <XMarkIcon size={12} color="#fff" />
-                        </View>
-                        <View className="flex-row justify-between">
-                            <Text className="font-bold">La Moderna</Text>
-                            <Text className="font-bold">$2,000</Text>
-                        </View>
-                        <View className="flex-row justify-between">
-                            <Text className="text-gray-500">Hoy a las 10:00 AM</Text>
-                            <Text className="text-gray-500">250 Productos</Text>
-                        </View>
+                        <TicketCard tienda="Abarrotes Paisa" monto={1500} hora="Hoy a las 10:15 AM" productos={1200} estado="cancelado" />
                     </View>
                     <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
-                        <View className="absolute -top-2 -right-2 bg-blue-500 rounded-full w-5 h-5 items-center justify-center">
-                            <CheckIcon size={12} color="#fff" />
-                        </View>
-                        <View className="flex-row justify-between">
-                            <Text className="font-bold">La Moderna</Text>
-                            <Text className="font-bold">$2,000</Text>
-                        </View>
-                        <View className="flex-row justify-between">
-                            <Text className="text-gray-500">Hoy a las 10:00 AM</Text>
-                            <Text className="text-gray-500">250 Productos</Text>
-                        </View>
+                        <TicketCard tienda="La Moderna" monto={2000} hora="Hoy a las 10:00 AM" productos={250} estado="completado" />
                     </View>
                 </View>
                 <TouchableOpacity>
