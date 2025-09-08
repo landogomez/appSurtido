@@ -92,7 +92,6 @@ const NavBar = () => {
                     </View>
                 </BlurView>
             </TouchableWithoutFeedback>
-            
         )}
     </>
        
