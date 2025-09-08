@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
+import TicketCard from "../components/TicketCard";
+import NavBar from "../navBar";
 
 const Ventas = () => {
 
@@ -30,6 +32,29 @@ const Ventas = () => {
                     <Text className={`${isSelected('Pendientes') ? 'text-white' : 'text-gray-300'}`}>Pendientes</Text>
                 </View>
             </View>
+            <View className="relative h-68 flex flex-col px-6 pt-8 items-center justify-center mt-0">
+                <View>
+                    <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <TicketCard tienda="La Moderna" monto={2000} hora="Hoy a las 10:00 AM" productos={250} estado="completado" />
+                    </View>
+                    <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <TicketCard tienda="La Moderna" monto={2000} hora="Hoy a las 10:00 AM" productos={250} estado="completado" />
+                    </View>
+                    <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <TicketCard tienda="La Moderna" monto={2000} hora="Hoy a las 10:00 AM" productos={250} estado="completado" />
+                    </View>
+                    <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <TicketCard tienda="La Moderna" monto={2000} hora="Hoy a las 10:00 AM" productos={250} estado="completado" />
+                    </View>
+                    <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <TicketCard tienda="La Moderna" monto={2000} hora="Hoy a las 10:00 AM" productos={250} estado="completado" />
+                    </View>
+                    <View className="h-16 w-96 rounded-lg border border-gray-200 mb-2 p-4 justify-center">
+                        <TicketCard tienda="La Moderna" monto={2000} hora="Hoy a las 10:00 AM" productos={250} estado="completado" />
+                    </View>
+                </View>
+            </View>
+            <NavBar />
         </View>
     )
 }

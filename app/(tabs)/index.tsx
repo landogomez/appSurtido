@@ -8,6 +8,8 @@ import NavBar from "../navBar";
 const Index = () => {
 
     const [isOffline, setIsOffline] = useState(false)
+
+    
     return (
        
         <View className="flex-1 bg-white">
