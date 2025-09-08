@@ -1,4 +1,5 @@
 import { Text, TouchableOpacity, View } from "react-native";
+import { SignalSlashIcon } from "react-native-heroicons/outline";
 import KpiCard from "../components/KpiCard";
 import TicketCard from "../components/TicketCard";
 import NavBar from "../navBar";
@@ -39,6 +40,10 @@ const Index = () => {
                 
             </View>
             <NavBar />
+            <View className="absolute bottom-5 left-1/2 -translate-x-1/2  w-auto items-center flex-row justify-center space-x-2  bg-[#FFE678] px-4 py-2 rounded-full">
+                <SignalSlashIcon color="#fb923c" size={20}/>
+                <Text className="text-sm text-gray-600 font-bold text-orange-400 ml-3">Sin conexión</Text>
+            </View>
         </View>
     )
 }
