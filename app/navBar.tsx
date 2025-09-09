@@ -1,8 +1,8 @@
 import { BlurView } from 'expo-blur';
 import { usePathname, useRouter } from "expo-router";
 import { useState } from "react";
-import { Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { ClipboardDocumentListIcon, ExclamationTriangleIcon, FaceFrownIcon, HomeIcon, InboxArrowDownIcon, MapPinIcon, TruckIcon } from "react-native-heroicons/outline";
+import { Keyboard, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { ClipboardDocumentListIcon, ExclamationTriangleIcon, FaceFrownIcon, HomeIcon, InboxArrowDownIcon, MagnifyingGlassIcon, MapPinIcon, TruckIcon } from "react-native-heroicons/outline";
 import { ClipboardDocumentListIcon as ClipboardFilled, HomeIcon as HomeIconFilled, MapPinIcon as MapFilled } from "react-native-heroicons/solid";
 
 const NavBar = () => {
@@ -15,6 +15,7 @@ const NavBar = () => {
     };
     const pathname = usePathname();
     const [showModal, setShowModal] = useState(false);
+    const [showModalCentral, setShowModalCentral] = useState(false);
     const toggleModal = () => {
         setShowModal(!showModal);
     }
@@ -46,7 +47,7 @@ const NavBar = () => {
                 
             {/* FAB central - solo placeholder visual */}
             <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => { setShowModalCentral(!showModalCentral) }}
                 style={{
                     bottom: 30, // Eleva el FAB por encima de la barra de navegación
                     width: 72,
@@ -92,6 +93,27 @@ const NavBar = () => {
                     </View>
                 </BlurView>
             </TouchableWithoutFeedback>
+        )}
+        {showModalCentral && (
+            <Modal presentationStyle='pageSheet' animationType='slide'>
+                <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
+                    <View className='flex-1 items-center'>
+                        <View className='flex-row justify-between px-6 py-4 w-full mt-8 items-center'>
+                            <TouchableOpacity onPress={() => setShowModalCentral(false)}>
+                                <Text className='font-medium text-blue-500'>Cancelar</Text>
+                            </TouchableOpacity>
+                            <Text className='font-bold text-md'>Seleccionar Tienda</Text>
+                            <TouchableOpacity>
+                                <Text className='font-medium text-blue-500'>Agregar</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View className='flex-row items-center space-x-2 bg-gray-100 rounded-full px-4 py-2 w-11/12'>
+                            <MagnifyingGlassIcon size={16} color={"#6B7280"}/>
+                            <TextInput placeholder='Buscar...' placeholderTextColor={"#9CA3AF"} className='flex-1 ml-2' />
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
+            </Modal>
         )}
     </>
        
