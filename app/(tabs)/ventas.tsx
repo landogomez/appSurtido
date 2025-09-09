@@ -21,7 +21,7 @@ const Ventas = () => {
             <View className="pt-4 items-center justify-center mt-20">
                 <Text className="text-lg font-bold">Historial de ventas</Text>
             </View>
-            <View className="h-16 self-center mt-6 flex flex-row items-center justify-center space-x-4"> 
+            <View className="h-16  mt-6 flex flex-row items-center justify-center space-x-4"> 
                 <View className={`items-center flex-row justify-center  p-2 m-2 border rounded-full ${isSelected('Todos') ? 'bg-[#031445ff]' : 'border-gray-300'}`} onTouchEnd={() => handleFilter('Todos')}>
                     <Text className={`${isSelected('Todos') ? 'text-white' : 'text-gray-300'} font-bold`}>Todos</Text>
                 </View>
