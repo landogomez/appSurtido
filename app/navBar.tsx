@@ -1,8 +1,8 @@
 import { BlurView } from 'expo-blur';
 import { usePathname, useRouter } from "expo-router";
 import { useState } from "react";
-import { Keyboard, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { ClipboardDocumentListIcon, ExclamationTriangleIcon, FaceFrownIcon, HomeIcon, InboxArrowDownIcon, MagnifyingGlassIcon, MapPinIcon, TruckIcon } from "react-native-heroicons/outline";
+import { FlatList, Keyboard, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { BuildingStorefrontIcon, ClipboardDocumentListIcon, ExclamationTriangleIcon, FaceFrownIcon, HomeIcon, InboxArrowDownIcon, MagnifyingGlassIcon, MapPinIcon, TruckIcon } from "react-native-heroicons/outline";
 import { ClipboardDocumentListIcon as ClipboardFilled, HomeIcon as HomeIconFilled, MapPinIcon as MapFilled } from "react-native-heroicons/solid";
 
 const NavBar = () => {
@@ -19,6 +19,13 @@ const NavBar = () => {
     const toggleModal = () => {
         setShowModal(!showModal);
     }
+
+    const tiendas = [
+        { id: '1', name: 'Tienda A' },
+        { id: '2', name: 'Tienda B' },
+        { id: '3', name: 'Tienda C' },
+    ]
+    const [selectedStore, setSelectedStore] = useState<string | null>(null);
 
   return (
     <>
@@ -110,6 +117,18 @@ const NavBar = () => {
                         <View className='flex-row items-center space-x-2 bg-gray-100 rounded-full px-4 py-2 w-11/12'>
                             <MagnifyingGlassIcon size={16} color={"#6B7280"}/>
                             <TextInput placeholder='Buscar...' placeholderTextColor={"#9CA3AF"} className='flex-1 ml-2' />
+                        </View>
+                        <View className='mt-8 w-11/12'>
+                            <Text className='font-bold text-gray-600 mb-6'>Cercanos</Text>
+                            <FlatList data={tiendas} renderItem={({ item }) => (
+                                <TouchableOpacity key={item.id} className="flex-row items-center  p-4 border-b border-gray-200 w-full" onPress={() => setSelectedStore(item.id)}>
+                                    <BuildingStorefrontIcon size={24} />
+                                    <Text className='ml-2 text-lg'>{item.name}</Text>
+                                    <View className={`ml-auto border border-gray-300 rounded-full w-6 h-6 ${selectedStore === item.id ? 'bg-blue-500' : ''}`} >
+                                    </View>
+                                </TouchableOpacity>
+                            )}>
+                            </FlatList>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
