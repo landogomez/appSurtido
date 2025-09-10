@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { CameraIcon, ChevronLeftIcon, MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/outline";
 import { ExclamationTriangleIcon, PlusIcon } from "react-native-heroicons/solid";
@@ -16,6 +17,30 @@ const Productos = () => {
         { id: '9', name: 'Producto I', price: 90, quantity: 0 },
         { id: '10', name: 'Producto J', price: 100, quantity: 0 },
     ]
+
+    
+    const [productosCantidad, setProductosCantidad] = useState(productos)
+
+    const aumentarCantidad = (id: string) => {
+        setProductosCantidad(prevState =>
+            prevState.map(producto =>
+                producto.id === id
+                    ? { ...producto, quantity: producto.quantity + 1 }
+                    : producto
+            )
+        );
+    }
+
+    const disminuirCantidad = (id: string) => {
+        setProductosCantidad(prevState =>
+            prevState.map(producto =>
+                producto.id === id
+                    ? { ...producto, quantity: Math.max(0, producto.quantity - 1) }
+                    : producto
+            )
+        );
+    }
+
     return (
         <View className="flex-1 bg-white">
             <View className="flex-row items-center px-6 pt-8 mt-10 mb-4">
@@ -41,18 +66,18 @@ const Productos = () => {
             </TouchableOpacity>
             <Text className="m-6 font-bold text-gray-600">Productos seleccionados</Text>
             <View className="flex-1 mb-6">
-                <FlatList data={productos} renderItem={({item}) => (
+                <FlatList data={productosCantidad} renderItem={({item}) => (
                     <View className="flex-row items-center justify-between px-6 py-4">
                         <View className="space-y-2">
                             <Text className="font-bold">{item.name}</Text>
                             <Text className="font-bold text-[#5DBA00]">${item.price}</Text>
                         </View>
                         <View className="flex-1 flex-row items-center justify-end ">
-                            <TouchableOpacity className="mr-4" onPress={() => {}}>
-                                <MinusCircleIcon color={item.quantity >= 0 ? "#ed0a0aff" : "#D1D5DB"}/>
+                            <TouchableOpacity className="mr-4" onPress={() => {disminuirCantidad(item.id)}}>
+                                <MinusCircleIcon color={item.quantity > 0 ? "#ed0a0aff" : "#D1D5DB"}/>
                             </TouchableOpacity>
                             <Text className="mr-4 font-bold">{item.quantity}</Text>
-                            <TouchableOpacity className="mr-4" onPress={() => {}}>
+                            <TouchableOpacity className="mr-4" onPress={() => {aumentarCantidad(item.id)}}>
                                 <PlusCircleIcon size={24} color={"#3B82F6"}/>
                             </TouchableOpacity>
                         </View>
