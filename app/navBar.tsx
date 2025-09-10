@@ -27,6 +27,19 @@ const NavBar = () => {
     ]
     const [selectedStore, setSelectedStore] = useState<string | null>(null);
 
+    const tiendasRuta = [
+        { id: '11', name: 'Tienda X' },
+        { id: '21', name: 'Tienda Y' },
+        { id: '30', name: 'Tienda Z' },
+        { id: '4', name: 'Tienda W' },
+        { id: '5', name: 'Tienda V' },
+        { id: '6', name: 'Tienda U' },
+        { id: '7', name: 'Tienda T' },
+        { id: '8', name: 'Tienda S' },
+        { id: '9', name: 'Tienda R' },
+        { id: '10', name: 'Tienda Q' },
+    ]
+
   return (
     <>
         <View
@@ -118,17 +131,38 @@ const NavBar = () => {
                             <MagnifyingGlassIcon size={16} color={"#6B7280"}/>
                             <TextInput placeholder='Buscar...' placeholderTextColor={"#9CA3AF"} className='flex-1 ml-2' />
                         </View>
-                        <View className='mt-8 w-11/12'>
-                            <Text className='font-bold text-gray-600 mb-6'>Cercanos</Text>
+                        <View className='mt-10 w-11/12'>
+                            <Text className='font-bold text-gray-600 mb-4'>Cercanos</Text>
                             <FlatList data={tiendas} renderItem={({ item }) => (
                                 <TouchableOpacity key={item.id} className="flex-row items-center  p-4 border-b border-gray-200 w-full" onPress={() => setSelectedStore(item.id)}>
                                     <BuildingStorefrontIcon size={24} />
                                     <Text className='ml-2 text-lg'>{item.name}</Text>
-                                    <View className={`ml-auto border border-gray-300 rounded-full w-6 h-6 ${selectedStore === item.id ? 'bg-blue-500' : ''}`} >
+                                    <View className={`ml-auto border border-gray-300 rounded-full w-6 h-6 ${selectedStore === item.id ? 'bg-[#031445ff]' : ''}`} >
                                     </View>
                                 </TouchableOpacity>
                             )}>
                             </FlatList>
+                        </View>
+                        <View className='mt-10 w-11/12 flex-1'>
+                            <Text className="font-bold text-gray-600 mb-4">Establecimientos de la ruta</Text>
+                            <FlatList  data={tiendasRuta} renderItem={({item}) => (
+                                <TouchableOpacity key={item.id} className='flex-row items-center  p-4 border-b border-gray-200 w-full' onPress={() => setSelectedStore(item.id)}>
+                                    <BuildingStorefrontIcon size={24} />
+                                    <Text className='ml-2 text-lg'>{item.name}</Text>
+                                    <View className={`ml-auto border border-gray-300 rounded-full w-6 h-6 ${selectedStore === item.id ? 'bg-[#031445ff]' : ''}`} >
+                                    </View>
+                                </TouchableOpacity>
+                            )}>
+                            </FlatList>
+                            {selectedStore && (
+                                <View className='flex-row items-center justify-between bg-[#031445ff] p-4 mb-10 rounded-lg'>
+                                    <Text className='text-lg text-gray-200'>{tiendasRuta.find(item => item.id === selectedStore)?.name}</Text>
+                                    <TouchableOpacity>
+                                        <Text className='text-white font-bold'>Seleccionar</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                            
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
