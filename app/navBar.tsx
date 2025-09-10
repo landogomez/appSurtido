@@ -157,12 +157,13 @@ const NavBar = () => {
                             {selectedStore && (
                                 <View className='flex-row items-center justify-between bg-[#031445ff] p-4 mb-10 rounded-lg'>
                                     <Text className='text-lg text-gray-200'>{tiendasRuta.find(item => item.id === selectedStore)?.name}</Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => {
+                                        setShowModalCentral(false);
+                                        router.push("/seccion/productos")}}>
                                         <Text className='text-white font-bold'>Seleccionar</Text>
                                     </TouchableOpacity>
                                 </View>
                             )}
-                            
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
