@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FlatList, Keyboard, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { BuildingStorefrontIcon, ClipboardDocumentListIcon, ExclamationTriangleIcon, FaceFrownIcon, HomeIcon, InboxArrowDownIcon, MagnifyingGlassIcon, MapPinIcon, TruckIcon } from "react-native-heroicons/outline";
 import { ClipboardDocumentListIcon as ClipboardFilled, HomeIcon as HomeIconFilled, MapPinIcon as MapFilled } from "react-native-heroicons/solid";
+import SelectionBar from './components/SelectionBar';
 
 const NavBar = () => {
     const router = useRouter();
@@ -155,14 +156,7 @@ const NavBar = () => {
                             )}>
                             </FlatList>
                             {selectedStore && (
-                                <View className='flex-row items-center justify-between bg-[#031445ff] p-4 mb-10 rounded-lg'>
-                                    <Text className='text-lg text-gray-200'>{tiendasRuta.find(item => item.id === selectedStore)?.name}</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setShowModalCentral(false);
-                                        router.push("/seccion/productos")}}>
-                                        <Text className='text-white font-bold'>Seleccionar</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <SelectionBar texto={tiendasRuta.find(item => item.id === selectedStore)?.name ?? ''} onPress={() => { setShowModalCentral(false); router.push("/seccion/productos") }} />
                             )}
                         </View>
                     </View>
