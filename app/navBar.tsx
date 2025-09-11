@@ -1,9 +1,13 @@
 import { BlurView } from 'expo-blur';
 import { usePathname, useRouter } from "expo-router";
 import { useState } from "react";
-import { FlatList, Keyboard, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { BuildingStorefrontIcon, ClipboardDocumentListIcon, ExclamationTriangleIcon, FaceFrownIcon, HomeIcon, InboxArrowDownIcon, MagnifyingGlassIcon, MapPinIcon, TruckIcon } from "react-native-heroicons/outline";
+import { FlatList, Keyboard, Modal, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { BuildingStorefrontIcon, ClipboardDocumentListIcon, ExclamationTriangleIcon, FaceFrownIcon, HomeIcon, InboxArrowDownIcon, MapPinIcon, TruckIcon } from "react-native-heroicons/outline";
 import { ClipboardDocumentListIcon as ClipboardFilled, HomeIcon as HomeIconFilled, MapPinIcon as MapFilled } from "react-native-heroicons/solid";
+
+import HeaderBar from './components/HeaderBar';
+import SearchBar from './components/SearchBar';
+import SelectableListItem from './components/SelectableListItem';
 import SelectionBar from './components/SelectionBar';
 
 const NavBar = () => {
@@ -119,40 +123,31 @@ const NavBar = () => {
             <Modal presentationStyle='pageSheet' animationType='slide'>
                 <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
                     <View className='flex-1 items-center'>
-                        <View className='flex-row justify-between px-6 py-4 w-full mt-8 items-center'>
-                            <TouchableOpacity onPress={() => setShowModalCentral(false)}>
-                                <Text className='font-medium text-blue-500'>Cancelar</Text>
-                            </TouchableOpacity>
-                            <Text className='font-bold text-md'>Seleccionar Tienda</Text>
-                            <TouchableOpacity>
-                                <Text className='font-medium text-blue-500'>Agregar</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View className='flex-row items-center space-x-2 bg-gray-100 rounded-full px-4 py-2 w-11/12'>
-                            <MagnifyingGlassIcon size={16} color={"#6B7280"}/>
-                            <TextInput placeholder='Buscar...' placeholderTextColor={"#9CA3AF"} className='flex-1 ml-2' />
-                        </View>
+                        <HeaderBar onPress={() => { setShowModalCentral(false); }} botonIzq="Cancelar" botonDer="Agregar" titulo="Seleccionar Tienda" />
+                        <SearchBar />
                         <View className='mt-10 w-11/12'>
                             <Text className='font-bold text-gray-600 mb-4'>Cercanos</Text>
                             <FlatList data={tiendas} renderItem={({ item }) => (
-                                <TouchableOpacity key={item.id} className="flex-row items-center  p-4 border-b border-gray-200 w-full" onPress={() => setSelectedStore(item.id)}>
-                                    <BuildingStorefrontIcon size={24} />
-                                    <Text className='ml-2 text-lg'>{item.name}</Text>
-                                    <View className={`ml-auto border border-gray-300 rounded-full w-6 h-6 ${selectedStore === item.id ? 'bg-[#031445ff]' : ''}`} >
-                                    </View>
-                                </TouchableOpacity>
+                                <SelectableListItem
+                                    key={item.id}
+                                    name={item.name}
+                                    selected={selectedStore === item.id}
+                                    onPress={() => setSelectedStore(item.id)}
+                                    icon={<BuildingStorefrontIcon size={24} />}
+                                />
                             )}>
                             </FlatList>
                         </View>
                         <View className='mt-10 w-11/12 flex-1'>
                             <Text className="font-bold text-gray-600 mb-4">Establecimientos de la ruta</Text>
                             <FlatList  data={tiendasRuta} renderItem={({item}) => (
-                                <TouchableOpacity key={item.id} className='flex-row items-center  p-4 border-b border-gray-200 w-full' onPress={() => setSelectedStore(item.id)}>
-                                    <BuildingStorefrontIcon size={24} />
-                                    <Text className='ml-2 text-lg'>{item.name}</Text>
-                                    <View className={`ml-auto border border-gray-300 rounded-full w-6 h-6 ${selectedStore === item.id ? 'bg-[#031445ff]' : ''}`} >
-                                    </View>
-                                </TouchableOpacity>
+                                <SelectableListItem
+                                    key={item.id}
+                                    name={item.name}
+                                    selected={selectedStore === item.id}
+                                    onPress={() => setSelectedStore(item.id)}
+                                    icon={<BuildingStorefrontIcon size={24} />}
+                                />
                             )}>
                             </FlatList>
                             {selectedStore && (

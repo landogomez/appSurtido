@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { CameraIcon, ChevronLeftIcon, MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/outline";
+import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ArrowPathIcon, CameraIcon, ChevronLeftIcon, MinusCircleIcon, PlusCircleIcon, TrashIcon } from "react-native-heroicons/outline";
 import { ExclamationTriangleIcon, PlusIcon } from "react-native-heroicons/solid";
 
 const Productos = () => {
@@ -41,6 +41,18 @@ const Productos = () => {
         );
     }
 
+    const resetearCantidad = (id: string) => {
+        setProductosCantidad(prevState =>
+            prevState.map(producto =>
+                producto.id === id ? { ...producto, quantity: 0 } : producto
+            )
+        );
+    }
+
+    const eliminarProducto = (id: string) => {
+        setProductosCantidad(prevState => prevState.filter(producto => producto.id !== id));
+    }
+
     return (
         <View className="flex-1 bg-white">
             <View className="flex-row items-center px-6 pt-8 mt-10 mb-4">
@@ -65,7 +77,7 @@ const Productos = () => {
                 <Text className="font-bold ml-4">Agregar Productos</Text>
             </TouchableOpacity>
             <Text className="m-6 font-bold text-gray-600">Productos seleccionados</Text>
-            <View className="flex-1 mb-6">
+            <View className="flex-1 mb-6 ">
                 <FlatList data={productosCantidad} renderItem={({item}) => (
                     <View className="flex-row items-center justify-between px-6 py-4">
                         <View className="space-y-2">
@@ -76,14 +88,38 @@ const Productos = () => {
                             <TouchableOpacity className="mr-4" onPress={() => {disminuirCantidad(item.id)}}>
                                 <MinusCircleIcon color={item.quantity > 0 ? "#ed0a0aff" : "#D1D5DB"}/>
                             </TouchableOpacity>
-                            <Text className="mr-4 font-bold">{item.quantity}</Text>
+                            <TextInput className="mr-4 font-bold" keyboardType="numeric" onChangeText={(text) => {
+                                const quantity = parseInt(text);
+                                if (!isNaN(quantity)) {
+                                    setProductosCantidad(prevState =>
+                                        prevState.map(producto =>
+                                            producto.id === item.id
+                                                ? { ...producto, quantity }
+                                                : producto
+                                        )
+                                    );
+                                }
+                            }}>{item.quantity}</TextInput>
                             <TouchableOpacity className="mr-4" onPress={() => {aumentarCantidad(item.id)}}>
                                 <PlusCircleIcon size={24} color={"#3B82F6"}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity className="ml-16" onPress={() => {resetearCantidad(item.id)}}>
+                                <ArrowPathIcon color="#6B7280" size={22} />
+                            </TouchableOpacity>
+                            <TouchableOpacity className="ml-6" onPress={() => {eliminarProducto(item.id)}}>
+                                <TrashIcon color="#ef4444" size={22} />
                             </TouchableOpacity>
                         </View>
                     </View>
                 )}>
                 </FlatList>
+                <TouchableOpacity className="flex-row w-11/12 items-center self-center justify-between px-6 py-4 border-t bg-[#031445ff] mb-10 rounded-lg">
+                    <View>
+                        <Text className="text-white font-medium">{productosCantidad.length} Productos</Text>
+                        <Text className="text-white font-medium">Total: ${productosCantidad.reduce((total, item) => total + item.price * item.quantity, 0)}</Text>
+                    </View>
+                    <Text className="text-white font-bold">Generar Ticket</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
