@@ -20,6 +20,7 @@ const Productos = () => {
 
     
     const [productosCantidad, setProductosCantidad] = useState(productos)
+    const [showModal, setShowModal] = useState(false)
 
     const aumentarCantidad = (id: string) => {
         setProductosCantidad(prevState =>
