@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 type HeaderBarProps = {
     onPress: () => void;
     botonIzq: string;
-    botonDer: string;
+    botonDer?: string;
     titulo: string;
     onPressDer?: () => void;
 }

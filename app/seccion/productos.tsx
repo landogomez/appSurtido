@@ -1,8 +1,9 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { ArrowPathIcon, CameraIcon, ChevronLeftIcon, MinusCircleIcon, PlusCircleIcon, TrashIcon } from "react-native-heroicons/outline";
 import { ExclamationTriangleIcon, PlusIcon } from "react-native-heroicons/solid";
+import HeaderBar from "../components/HeaderBar";
 
 const Productos = () => {
     const productos = [
@@ -73,7 +74,10 @@ const Productos = () => {
                 </View>
             </View>
             <Text className="ml-8 mt-10 text-md font-bold">Ticket No.1</Text>
-            <TouchableOpacity className="flex-row items-center justify-center mt-4 space-x-4 border  border-gray-400 rounded-lg p-4 mx-6">
+            <TouchableOpacity 
+                className="flex-row items-center justify-center mt-4 space-x-4 border  border-gray-400 rounded-lg p-4 mx-6"
+                onPress={() => {setShowModal(true)}}
+            >
                 <PlusIcon />
                 <Text className="font-bold ml-4">Agregar Productos</Text>
             </TouchableOpacity>
@@ -122,6 +126,16 @@ const Productos = () => {
                     <Text className="text-white font-bold">Generar Ticket</Text>
                 </TouchableOpacity>
             </View>
+            {showModal && (
+                <Modal>
+                    <TouchableWithoutFeedback>
+                        <View>
+                            <HeaderBar onPress={() => { setShowModal(false); }} botonIzq="Cancelar" titulo="Agregar Productos" />
+                            
+                        </View>
+                    </TouchableWithoutFeedback>
+                </Modal>
+            )}
         </View>
     )
 }
