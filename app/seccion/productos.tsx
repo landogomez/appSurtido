@@ -1,9 +1,12 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { FlatList, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { ArrowPathIcon, CameraIcon, ChevronLeftIcon, MinusCircleIcon, PlusCircleIcon, TrashIcon } from "react-native-heroicons/outline";
+import { FlatList, Keyboard, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { ArrowPathIcon, CameraIcon, ChevronLeftIcon, MinusCircleIcon, PlusCircleIcon, ShoppingBagIcon, TrashIcon } from "react-native-heroicons/outline";
 import { ExclamationTriangleIcon, PlusIcon } from "react-native-heroicons/solid";
 import HeaderBar from "../components/HeaderBar";
+import SearchBar from "../components/SearchBar";
+import SelectableListItem from "../components/SelectableListItem";
+import SelectionBar from "../components/SelectionBar";
 
 const Productos = () => {
     const productos = [
@@ -19,9 +22,42 @@ const Productos = () => {
         { id: '10', name: 'Producto J', price: 100, quantity: 0 },
     ]
 
+    const productosRuta = [
+        { id: '11', name: 'Producto K', price: 110, quantity: 0 },
+        { id: '21', name: 'Producto L', price: 120, quantity: 0 },
+        { id: '30', name: 'Producto M', price: 130, quantity: 0 },
+        { id: '40', name: 'Producto N', price: 140, quantity: 0 },
+        { id: '58', name: 'Producto O', price: 150, quantity: 0 },
+        { id: '62', name: 'Producto P', price: 160, quantity: 0 },
+        { id: '70', name: 'Producto Q', price: 170, quantity: 0 },
+        { id: '80', name: 'Producto R', price: 180, quantity: 0 },
+        { id: '91', name: 'Producto S', price: 190, quantity: 0 },
+        { id: '100', name: 'Producto T', price: 200, quantity: 0 },
+    ]
+
+    const productosMasVendidos = [
+        { id: '101', name: 'Producto U', price: 210, quantity: 0 },
+        { id: '102', name: 'Producto V', price: 220, quantity: 0 },
+        { id: '103', name: 'Producto W', price: 230, quantity: 0 },
+    ]
+
+    const agregarProductos = (productosSeleccionados: string[]) => {
+
+        const allProducts = [...productosMasVendidos, ...productosRuta];
+
+        const nuevosProductos = allProducts.filter(producto => productosSeleccionados.includes(producto.id) && !productosCantidad.some(p => p.id === producto.id));
+
+        setProductosCantidad(prevState => [...prevState, ...nuevosProductos]);
+
+        setSelectedProducts([]);
+        setShowModal(false);
+    }
+
+
     
     const [productosCantidad, setProductosCantidad] = useState(productos)
     const [showModal, setShowModal] = useState(false)
+    const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
 
     const aumentarCantidad = (id: string) => {
         setProductosCantidad(prevState =>
@@ -118,6 +154,7 @@ const Productos = () => {
                     </View>
                 )}>
                 </FlatList>
+                {productosCantidad.length > 0 && (
                 <TouchableOpacity className="flex-row w-11/12 items-center self-center justify-between px-6 py-4 border-t bg-[#031445ff] mb-10 rounded-lg">
                     <View>
                         <Text className="text-white font-medium">{productosCantidad.length} Productos</Text>
@@ -125,13 +162,50 @@ const Productos = () => {
                     </View>
                     <Text className="text-white font-bold">Generar Ticket</Text>
                 </TouchableOpacity>
+                )}
             </View>
             {showModal && (
-                <Modal>
-                    <TouchableWithoutFeedback>
-                        <View>
+                <Modal presentationStyle="pageSheet" animationType="slide">
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View className="flex-1 items-center">
                             <HeaderBar onPress={() => { setShowModal(false); }} botonIzq="Cancelar" titulo="Agregar Productos" />
-                            
+                            <SearchBar/>
+                            <View className="mt-10 w-11/12">
+                                <Text className="font-bold text-gray-600 mb-4">Mas Vendidos</Text>
+                                <FlatList data={productosMasVendidos} renderItem={({item}) => (
+                                    <SelectableListItem
+                                        key={item.id}
+                                        name={item.name}
+                                        icon={<ShoppingBagIcon size={24} />}
+                                        selected={selectedProducts.includes(item.id)}
+                                        onPress={() => { setSelectedProducts(prev =>
+                                            prev.includes(item.id)
+                                                ? prev.filter(id => id !== item.id)
+                                                : [...prev, item.id]
+                                        ); }}
+                                    />
+                                )} />
+
+                            </View>
+                            <View className="mt-10 w-11/12 flex-1">
+                                <Text className="font-bold text-gray-600 mb-4">Stock Ruta</Text>
+                                <FlatList data={productosRuta} renderItem={({item}) => (
+                                    <SelectableListItem
+                                        key={item.id}
+                                        name={item.name}
+                                        icon={<ShoppingBagIcon size={24} />}
+                                        selected={selectedProducts.includes(item.id)}
+                                        onPress={() => { setSelectedProducts(prev =>
+                                            prev.includes(item.id)
+                                                ? prev.filter(id => id !== item.id)
+                                                : [...prev, item.id]
+                                        ); }}
+                                    />
+                                )} />
+                                {selectedProducts.length > 0 && (
+                                    <SelectionBar texto={`${selectedProducts.length} productos seleccionados`} onPress={() => agregarProductos(selectedProducts)} />
+                                )}
+                            </View>
                         </View>
                     </TouchableWithoutFeedback>
                 </Modal>
