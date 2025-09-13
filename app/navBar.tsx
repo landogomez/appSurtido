@@ -23,6 +23,8 @@ const NavBar = () => {
     const [showModalCentral, setShowModalCentral] = useState(false);
     const toggleModal = () => {
         setShowModal(!showModal);
+        setShowModalCentral(false);
+        setSelectedStore(null);
     }
 
     const tiendas = [
@@ -44,6 +46,12 @@ const NavBar = () => {
         { id: '9', name: 'Tienda R' },
         { id: '10', name: 'Tienda Q' },
     ]
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setShowModalCentral(false);
+        setSelectedStore(null);
+    }
 
   return (
     <>
@@ -72,7 +80,9 @@ const NavBar = () => {
                 
             {/* FAB central - solo placeholder visual */}
             <TouchableOpacity
-                onPress={() => { setShowModalCentral(!showModalCentral) }}
+                onPress={() => { setShowModalCentral(true);
+                                    setShowModal(false);
+                                    setSelectedStore(null); }}
                 style={{
                     bottom: 30, // Eleva el FAB por encima de la barra de navegación
                     width: 72,
@@ -123,7 +133,7 @@ const NavBar = () => {
             <Modal presentationStyle='pageSheet' animationType='slide'>
                 <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
                     <View className='flex-1 items-center'>
-                        <HeaderBar onPress={() => { setShowModalCentral(false); }} botonIzq="Cancelar" botonDer="Agregar" titulo="Seleccionar Tienda" />
+                        <HeaderBar onPress={handleCloseModal} botonIzq="Cancelar" botonDer="Agregar" titulo="Seleccionar Tienda" />
                         <SearchBar />
                         <View className='mt-10 w-11/12'>
                             <Text className='font-bold text-gray-600 mb-4'>Cercanos</Text>
@@ -133,7 +143,7 @@ const NavBar = () => {
                                     name={item.name}
                                     selected={selectedStore === item.id}
                                     onPress={() => setSelectedStore(item.id)}
-                                    icon={<BuildingStorefrontIcon size={24} />}
+                                    icon={<BuildingStorefrontIcon size={24} color={"B1B1B1"} stroke={"black"} />}
                                 />
                             )}>
                             </FlatList>
@@ -146,12 +156,12 @@ const NavBar = () => {
                                     name={item.name}
                                     selected={selectedStore === item.id}
                                     onPress={() => setSelectedStore(item.id)}
-                                    icon={<BuildingStorefrontIcon size={24} />}
+                                    icon={<BuildingStorefrontIcon size={24} color={"B1B1B1"} stroke={"black"} />}
                                 />
                             )}>
                             </FlatList>
                             {selectedStore && (
-                                <SelectionBar texto={tiendasRuta.find(item => item.id === selectedStore)?.name ?? ''} onPress={() => { setShowModalCentral(false); router.push("/seccion/productos") }} />
+                                <SelectionBar texto={tiendasRuta.find(item => item.id === selectedStore)?.name ?? ''} onPress={() => { setSelectedStore(null) ;setShowModalCentral(false); router.push("/seccion/productos") }} />
                             )}
                         </View>
                     </View>
