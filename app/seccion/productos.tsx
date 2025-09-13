@@ -102,10 +102,10 @@ const Productos = () => {
                 <Text className="flex-1 text-lg font-bold text-center">La Moderna</Text>
                 <View className="w-12 flex-row items-center justify-end">
                     <TouchableOpacity>
-                        <ExclamationTriangleIcon />
+                        <ExclamationTriangleIcon fill={"black"}/>
                     </TouchableOpacity>
                     <TouchableOpacity className="ml-8">
-                        <CameraIcon />
+                        <CameraIcon stroke={"black"}/>
                     </TouchableOpacity>
                 </View>
             </View>
