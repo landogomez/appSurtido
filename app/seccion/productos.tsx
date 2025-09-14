@@ -184,7 +184,7 @@ const Productos = () => {
                 <Modal presentationStyle="pageSheet" animationType="slide">
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <View className="flex-1 items-center">
-                            <HeaderBar onPress={() => { setShowModal(false); }} botonIzq="Cancelar" titulo="Agregar Productos" />
+                            <HeaderBar onPress={() => { setShowModal(false); setSelectedProducts([]); }} botonIzq="Cancelar" titulo="Agregar Productos" />
                             <SearchBar/>
                             <View className="mt-10 w-11/12">
                                 <Text className="font-bold text-gray-600 mb-4">Mas Vendidos</Text>
