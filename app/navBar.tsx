@@ -5,6 +5,7 @@ import { FlatList, Keyboard, Modal, Text, TouchableOpacity, TouchableWithoutFeed
 import { BuildingStorefrontIcon, ClipboardDocumentListIcon, ExclamationTriangleIcon, FaceFrownIcon, HomeIcon, InboxArrowDownIcon, MapPinIcon, TruckIcon } from "react-native-heroicons/outline";
 import { ClipboardDocumentListIcon as ClipboardFilled, HomeIcon as HomeIconFilled, MapPinIcon as MapFilled } from "react-native-heroicons/solid";
 
+import AlertOption from './components/AlertOption';
 import HeaderBar from './components/HeaderBar';
 import SearchBar from './components/SearchBar';
 import SelectableListItem from './components/SelectableListItem';
@@ -113,18 +114,9 @@ const NavBar = () => {
             <TouchableWithoutFeedback onPress={toggleModal}>
                 <BlurView intensity={30} tint="dark" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
                     <View className="absolute bottom-40 left-1/2 -translate-x-1/2 w-80 bg-black/70 rounded-lg shadow-lg  space-y-4">
-                        <TouchableOpacity className="flex-row items-center justify-between border-b border-gray-200 p-3">
-                            <Text className="font-medium text-red-500">Reportar Robo</Text>
-                            <ExclamationTriangleIcon color="red" />
-                        </TouchableOpacity>
-                        <TouchableOpacity className="flex-row items-center justify-between border-b border-gray-200 p-3">
-                            <Text className="font-medium text-gray-300">Accidente Tránsito</Text>
-                            <TruckIcon color={"#d1d5db"} />
-                        </TouchableOpacity>
-                        <TouchableOpacity className="flex-row items-center justify-between  border-gray-200 p-3">
-                            <Text className="font-medium text-gray-300">Emergencia Médica</Text>
-                            <FaceFrownIcon color={"#d1d5db"} />
-                        </TouchableOpacity>
+                        <AlertOption onPress={() => {}} texto="Reportar Robo" icon={<ExclamationTriangleIcon color="red" />} showBorder />
+                        <AlertOption onPress={() => {}} texto="Accidente Tránsito" icon={<TruckIcon color={"#d1d5db"}  />} fontColor={"text-gray-300"} showBorder />
+                        <AlertOption onPress={() => {}} texto="Emergencia Médica" icon={<FaceFrownIcon color={"#d1d5db"}  />} fontColor={"text-gray-300"} />
                     </View>
                 </BlurView>
             </TouchableWithoutFeedback>

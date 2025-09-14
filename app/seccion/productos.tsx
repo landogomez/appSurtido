@@ -3,6 +3,10 @@ import { useState } from "react";
 import { FlatList, Keyboard, Modal, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { ArrowPathIcon, CameraIcon, ChevronLeftIcon, MinusCircleIcon, PlusCircleIcon, ShoppingBagIcon, TrashIcon } from "react-native-heroicons/outline";
 import { ExclamationTriangleIcon, PlusIcon } from "react-native-heroicons/solid";
+
+
+import { BlurView } from "expo-blur";
+import AlertOption from "../components/AlertOption";
 import HeaderBar from "../components/HeaderBar";
 import SearchBar from "../components/SearchBar";
 import SelectableListItem from "../components/SelectableListItem";
@@ -58,6 +62,7 @@ const Productos = () => {
     const [productosCantidad, setProductosCantidad] = useState(productos)
     const [showModal, setShowModal] = useState(false)
     const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+    const [showAlert, setShowAlert] = useState(false)
 
     const aumentarCantidad = (id: string) => {
         setProductosCantidad(prevState =>
@@ -101,7 +106,7 @@ const Productos = () => {
                 </View>
                 <Text className="flex-1 text-lg font-bold text-center">La Moderna</Text>
                 <View className="w-12 flex-row items-center justify-end">
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {setShowAlert(true)}}>
                         <ExclamationTriangleIcon fill={"black"}/>
                     </TouchableOpacity>
                     <TouchableOpacity className="ml-8">
@@ -114,7 +119,7 @@ const Productos = () => {
                 className="flex-row items-center justify-center mt-4 space-x-4 border  border-gray-400 rounded-lg p-4 mx-6"
                 onPress={() => {setShowModal(true)}}
             >
-                <PlusIcon />
+                <PlusIcon fill={"#191919ff"}/>
                 <Text className="font-bold ml-4">Agregar Productos</Text>
             </TouchableOpacity>
             <Text className="m-6 font-bold text-gray-600">Productos seleccionados</Text>
@@ -164,6 +169,17 @@ const Productos = () => {
                 </TouchableOpacity>
                 )}
             </View>
+            {showAlert && (
+                <TouchableWithoutFeedback onPress={() => setShowAlert(false)}>
+                    <BlurView intensity={60} tint="dark" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                        <View className="absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-80 bg-black/70 rounded-lg shadow-lg  space-y-4">
+                            <AlertOption onPress={() => {}} texto="Reportar Robo" icon={<ExclamationTriangleIcon color="red" />} showBorder />
+                            <AlertOption onPress={() => {}} texto="Accidente Tránsito"  fontColor={"text-gray-300"} showBorder />
+                            <AlertOption onPress={() => {}} texto="Emergencia Médica"  fontColor={"text-gray-300"} />
+                        </View>
+                    </BlurView>
+                </TouchableWithoutFeedback>
+            )}
             {showModal && (
                 <Modal presentationStyle="pageSheet" animationType="slide">
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -176,7 +192,7 @@ const Productos = () => {
                                     <SelectableListItem
                                         key={item.id}
                                         name={item.name}
-                                        icon={<ShoppingBagIcon size={24} />}
+                                        icon={<ShoppingBagIcon size={24} stroke={"#373737ff"}/>}
                                         selected={selectedProducts.includes(item.id)}
                                         onPress={() => { setSelectedProducts(prev =>
                                             prev.includes(item.id)
@@ -193,7 +209,7 @@ const Productos = () => {
                                     <SelectableListItem
                                         key={item.id}
                                         name={item.name}
-                                        icon={<ShoppingBagIcon size={24} />}
+                                        icon={<ShoppingBagIcon size={24} stroke={"#373737ff"}/>}
                                         selected={selectedProducts.includes(item.id)}
                                         onPress={() => { setSelectedProducts(prev =>
                                             prev.includes(item.id)
